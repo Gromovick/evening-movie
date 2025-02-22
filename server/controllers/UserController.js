@@ -1,6 +1,8 @@
 import { UserService } from "../services/UserService.js";
 import { ApiError } from "../utils/ApiError.js";
+import { handleError } from "../utils/handleError.js";
 import { ResFormatter } from "../utils/ResFormatter.js";
+import { throwApiError } from "../utils/throwApiError.js";
 
 class UserControllerClass {
   async register(req, res, next) {
@@ -9,7 +11,7 @@ class UserControllerClass {
       const userAgent = req.headers["user-agent"];
       const ip = req.ip;
       if (!username || !email || !password) {
-        throw new ApiError(400, "Please provide all fields", "Bad Request");
+        throwApiError(400, "Bad Request", "Please provide all fields");
       }
 
       const data = await UserService.register({
@@ -27,7 +29,7 @@ class UserControllerClass {
       });
       ResFormatter.resAnswer(res, 200, data);
     } catch (error) {
-      next(new ApiError(500, error.message, "Internal Server Error"));
+      next(handleError(error, ""));
     }
   }
 
@@ -35,7 +37,7 @@ class UserControllerClass {
     try {
       const { email, password } = req.body;
       if (!email || !password) {
-        throw new ApiError(400, "Please provide all fields", "Bad Request");
+        throwApiError(400, "Bad Request", "Please provide all fields");
       }
 
       const userAgent = req.headers["user-agent"];
@@ -50,7 +52,7 @@ class UserControllerClass {
       });
       ResFormatter.resAnswer(res, 200, data);
     } catch (error) {
-      next(new ApiError(500, error.message, "Internal Server Error"));
+      next(handleError(error, ""));
     }
   }
 
@@ -62,7 +64,7 @@ class UserControllerClass {
       res.clearCookie("accessToken");
       ResFormatter.resAnswer(res, 200, data);
     } catch (error) {
-      next(new ApiError(500, error.message, "Internal Server Error"));
+      next(handleError(error, ""));
     }
   }
 }

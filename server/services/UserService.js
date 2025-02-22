@@ -1,6 +1,9 @@
 import UserModel from "../models/UserModel.js";
-import { ApiError } from "../utils/ApiError.js";
+
+
 import { ResFormatter } from "../utils/ResFormatter.js";
+import { throwApiError } from "../utils/throwApiError.js";
+import { throwHandleError } from "../utils/throwHandleError.js";
 import { TokenService } from "./TokenService.js";
 import bcrypt from "bcryptjs";
 
@@ -12,10 +15,10 @@ class UserServiceClass {
       });
 
       if (existingUser) {
-        throw new ApiError(
+        throwApiError(
           409,
-          "Користувач з таким email або username вже існує",
-          "Conflict while registering user"
+          "Conflict while registering user",
+          "Користувач з таким email або username вже існує"
         );
       }
 
@@ -41,11 +44,7 @@ class UserServiceClass {
         "Користувач успішно зареєстрований"
       );
     } catch (error) {
-      throw new ApiError(
-        500,
-        error.message,
-        "Internal Server Error while registering user"
-      );
+      throwHandleError(error, "Internal Server Error while registering user");
     }
   }
 
@@ -53,15 +52,15 @@ class UserServiceClass {
     try {
       const user = await UserModel.findOne({ email });
       if (!user) {
-        throw new ApiError(
+        throwApiError(
           401,
-          "Користувача з таким email не знайдено",
-          "Unauthorized"
+          "Unauthorized",
+          "Користувача з таким email не знайдено"
         );
       }
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        throw new ApiError(401, "Невірний пароль", "Unauthorized");
+        throwApiError(401, "Unauthorized", "Невірний пароль");
       }
 
       const refreshToken = await TokenService.createRefreshToken(user);
@@ -72,11 +71,7 @@ class UserServiceClass {
         "Користувач успішно авторизований"
       );
     } catch (error) {
-      throw new ApiError(
-        500,
-        error.message,
-        "Internal Server Error while logging in user"
-      );
+      throwHandleError(error, "Internal Server Error while registering user");
     }
   }
 
@@ -85,11 +80,7 @@ class UserServiceClass {
       await TokenService.removeToken(refreshToken);
       return ResFormatter.resForm({}, "Користувач успішно вийшов з системи");
     } catch (error) {
-      throw new ApiError(
-        500,
-        error.message,
-        "Internal Server Error while logging out user"
-      );
+      throwHandleError(error, "Internal Server Error while registering user");
     }
   }
 }

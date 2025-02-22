@@ -1,0 +1,131 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  perspective: 1000px;
+  background: linear-gradient(135deg, #000000, #434343);
+  overflow: hidden;
+  z-index: -1;
+}
+
+.wrapper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  height: 70%;
+  background: rgb(235, 75, 12);
+  background: radial-gradient(
+    circle,
+    rgba(235, 75, 12, 0.9528186274509804) 0%,
+    rgba(175, 28, 6, 0.9780287114845938) 25%,
+    rgba(190, 94, 9, 0.9780287114845938) 50%,
+    rgba(226, 158, 9, 0.9556197478991597) 75%,
+    rgba(36, 35, 33, 0.6727065826330532) 100%
+  );
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(100px);
+  transform: translate(-50%, -50%);
+}
+
+.backWrapper {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  position: relative;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.backWrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+}
+
+.backGrid {
+  /* width: clamp(150%, calc(150% + 1vw), 300%); */
+  /* width: clamp(150%, 100vw, 300%); */
+  /* width: 150%; */
+  filter: blur(1px);
+
+  height: 100%;
+  display: grid;
+  /* display: flex; */
+  position: absolute;
+  top: 0;
+  top: -30%;
+  left: -15%;
+  grid-template-columns: repeat(10, clamp(10rem, 8.286rem + 8.571vw, 16rem));
+  transform-origin: center;
+  transform: rotateZ(45deg) rotateY(35deg);
+  column-gap: 0.5rem;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.backWrapper::before {
+  content: "";
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  transform: translate(50%, 50%);
+  width: 125%;
+  height: 125%;
+  background: radial-gradient(
+    circle,
+    rgb(0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 1;
+}
+
+.backLine {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  perspective: 1000px;
+  will-change: transform;
+  /* transition: transform 0.2s ease; */
+  /* transform: translateY(var(--power)); */
+  /* animation: slide 10s infinite; */
+  /* transform-style: preserve-3d; */
+}
+
+.backLine:nth-child(2n) {
+  /* transform: translateY(calc(var(--power) * -1)) rotateZ(180deg); */
+}
+
+.poster {
+  display: block;
+  width: 100%;
+}
+@keyframes slide {
+  0% {
+    transform: translateY(-10%);
+  }
+  50% {
+    transform: translateY(10%);
+  }
+  100% {
+    transform: translateY(-10%);
+  }
+}
