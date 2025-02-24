@@ -27,22 +27,40 @@ const UserSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(login.pending, (state, action) => {
-      state.isLoading = true;
-      state.isAuthenticated = false;
-    });
-    builder.addCase(login.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.isAuthenticated = true;
-      state.user = action.payload.result.user;
-      state.message = action.payload.message;
-    });
-    builder.addCase(login.rejected, (state, action) => {
-      state.message = action.payload.message;
-      state.isAuthenticated = false;
-      state.isLoading = false;
-      state.user = null;
-    });
+    builder
+      .addCase(login.pending, (state, action) => {
+        state.isLoading = true;
+        state.isAuthenticated = false;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload.result.user;
+        state.message = action.payload.message;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.message = action.payload.message;
+        state.isAuthenticated = false;
+        state.isLoading = false;
+        state.user = null;
+      });
+    builder
+      .addCase(register.pending, (state, action) => {
+        state.isLoading = true;
+        state.isAuthenticated = false;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload.result.user;
+        state.message = action.payload.message;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.message = action.payload.message;
+        state.isAuthenticated = false;
+        state.isLoading = false;
+        state.user = null;
+      });
   },
 });
 
@@ -76,5 +94,9 @@ export const register = createAsyncThunk("user/register", async (data) => {
     return response.data;
   } catch (error) {
     console.log(error.message);
+    return rejectWithValue({
+      message:
+        error.response?.data?.message || "An error occurred during login",
+    });
   }
 });

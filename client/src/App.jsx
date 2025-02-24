@@ -1,10 +1,27 @@
 import "./App.css";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import { Routes, Route } from "react-router";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import { useSelector } from "react-redux";
+import MainPage from "./components/MainPage";
 
 function App() {
-  return <div>
-    <LoginPage />
-  </div>;
+  const user = useSelector((state) => state.user.user);
+
+  return (
+    <div>
+      <Routes>
+        {!user && (
+          <>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </>
+        )}
+        <Route path="/main" element={<MainPage />} />
+        <Route path="*" element={<MainPage />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

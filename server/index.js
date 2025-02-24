@@ -1,4 +1,6 @@
 import { configDotenv } from "dotenv";
+configDotenv();
+
 import express from "express";
 import cors from "cors";
 import mongoose, { connect } from "mongoose";
@@ -9,7 +11,6 @@ import rateLimit from "express-rate-limit";
 import { connectDB } from "./config/db.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import userRouter from "./routes/userRouter.js";
-configDotenv();
 
 const app = express();
 
@@ -26,10 +27,10 @@ app.use(limiter);
 
 app.use("/api", userRouter);
 
-app.use(errorHandler); // Catch all errors and log them
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
-  connectDB();
+  await connectDB();
 });

@@ -1,0 +1,39 @@
+.wrapper {
+  /* display: grid; */
+  /* align-items: center; */
+  /* grid-template-columns: 1fr; */
+  align-content: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.input:focus,
+.input:hover,
+.input:active,
+.input:focus-within {
+  border-color: var(--contrast-main) !important;
+  outline-color: var(--contrast-main) !important;
+  /* font-size: 2rem; */
+}
+
+.input{
+  font-size: 1.25em;
+}
+
+.modal {
+  max-width: 20rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 3rem;
+  color: var(--contrast-main);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

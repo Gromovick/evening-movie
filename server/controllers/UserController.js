@@ -23,9 +23,11 @@ class UserControllerClass {
       });
       res.cookie("refreshToken", data.result.refreshToken, {
         httpOnly: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
       });
       res.cookie("accessToken", data.result.accessToken, {
         httpOnly: true,
+        maxAge: 15 * 60 * 1000,
       });
       ResFormatter.resAnswer(res, 200, data);
     } catch (error) {
@@ -46,9 +48,11 @@ class UserControllerClass {
       const data = await UserService.login({ email, password, userAgent, ip });
       res.cookie("refreshToken", data.result.refreshToken, {
         httpOnly: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
       });
       res.cookie("accessToken", data.result.accessToken, {
         httpOnly: true,
+        maxAge: 15 * 60 * 1000,
       });
       ResFormatter.resAnswer(res, 200, data);
     } catch (error) {
@@ -65,6 +69,16 @@ class UserControllerClass {
       ResFormatter.resAnswer(res, 200, data);
     } catch (error) {
       next(handleError(error, ""));
+    }
+  }
+
+  async activation(req, res, next) {
+    try {
+      const { code } = req.params;
+      const data = await UserService.activation({ code });
+      res.redirect(process.env.CLIENT_URL);
+    } catch (error) {
+      res.redirect(process.env.CLIENT_URL);
     }
   }
 }

@@ -25,7 +25,6 @@ const LoginBack = () => {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("devicemotion", handleDeviceMotion);
     };
   }, []);
 
