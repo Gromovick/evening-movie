@@ -9,6 +9,13 @@ const LoginBack = () => {
   const speed = 0.025;
   const animationRef = useRef(null);
   const linesRef = useRef([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWindowWidth(window.innerWidth);
+    });
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -18,15 +25,14 @@ const LoginBack = () => {
       };
     };
 
-    if (window.innerWidth < 768) {
-    } else {
+    if (window.innerWidth > 768) {
       window.addEventListener("mousemove", handleMouseMove);
     }
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [windowWidth]);
 
   useEffect(() => {
     const animate = () => {

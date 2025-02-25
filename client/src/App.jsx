@@ -14,7 +14,7 @@ function App() {
         {!user && (
           <>
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/register" element={<LoginPage />} />
           </>
         )}
         <Route path="/main" element={<MainPage />} />
