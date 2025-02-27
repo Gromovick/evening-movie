@@ -1,0 +1,9 @@
+.layout {
+  position: relative;
+  flex-grow: 1;
+}
+
+.content {
+  background: green;
+  height: 300vh;
+}

@@ -8,9 +8,17 @@
   box-sizing: border-box;
 }
 
+button {
+  background: transparent;
+  border: none;
+}
+
 body {
   --contrast-main: #ffa526;
   --contrast-main-darker: #f09a20;
+
+  --nav-ui-back: #000;
+  --border-color: hsl(0, 0%, 18.82%);
 }
 
 body {

@@ -1,0 +1,150 @@
+.wrapper {
+  width: 100%;
+  position: sticky;
+  background: var(--nav-ui-back);
+  top: 0;
+  left: 0;
+}
+.header * {
+  user-select: none;
+}
+.header {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.logo {
+  width: 4rem;
+  display: block;
+  display: none;
+}
+
+.inputCenter {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+.inputWrapper {
+  width: 50%;
+  align-self: center;
+  display: flex;
+}
+
+.input {
+  font-size: 1rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  color: #fff;
+}
+.input::placeholder {
+  color: gray;
+}
+.input:hover {
+  background: transparent;
+  border-color: var(--border-color);
+}
+
+.input:active,
+.input:focus,
+.input:target,
+.input:focus-within {
+  border: 1px var(--contrast-main) solid;
+}
+.input:not(:hover) {
+  background: transparent;
+}
+
+.searchBtn {
+  background: hsla(0, 0%, 100%, 0.08);
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  padding-right: 1rem;
+  padding-left: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.search {
+  display: block;
+  width: 2rem;
+  fill: #fff;
+}
+
+.streakWrapper {
+  display: flex;
+  color: #fff;
+  align-items: center;
+  position: relative;
+}
+.streak {
+  background: transparent;
+  border: none;
+  /* outline: none; */
+  cursor: pointer;
+}
+
+.fire {
+  width: 2.5rem;
+  display: block;
+}
+.counter {
+  /* align-self: flex-end; */
+  font-weight: 600;
+  position: relative;
+  top: 70%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  /* color: #000; */
+}
+
+.notificationsBtn {
+  background: transparent;
+  border: none;
+  height: fit-content;
+  /* outline: none; */
+  margin-top: 0.4rem;
+}
+
+.notifications {
+  fill: #fff;
+  width: 1.75rem;
+  cursor: pointer;
+  transition: fill 0.15s ease;
+  display: block;
+}
+
+.notificationsBtn:hover .notifications,
+.notificationsBtn:focus .notifications,
+.notificationsBtn:focus-within .notifications {
+  fill: var(--contrast-main);
+}
+
+.users {
+  display: flex;
+  gap: 1.5rem;
+  align-self: flex-end;
+  align-items: center;
+}
+
+.pfpBtn {
+  background: transparent;
+  border: none;
+  margin-right: 1rem;
+}
+
+.pfp {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  /* aspect-ratio: 1/1; */
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+}
