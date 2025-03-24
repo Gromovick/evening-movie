@@ -1,0 +1,13 @@
+@use "../../styles/_media.scss" as *;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  background-color: #141414;
+}
+.content {
+  flex-grow: 1;
+  flex-shrink: 0;
+//   background: yellow;
+//   min-height: 100vh;
+}

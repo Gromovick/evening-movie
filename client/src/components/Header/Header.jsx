@@ -1,53 +1,79 @@
 import React from "react";
-import s from "./Header.module.css";
-import { Input } from "antd";
-const Header = () => {
+import s from "./Header.module.scss";
+import { Link, useLocation } from "react-router";
+
+const navbar = [
+  { title: "Home", to: "/home" },
+  { title: "Support", to: "/support" },
+  { title: "Subscriptions", to: "/subscriptions" },
+];
+
+export const Header = () => {
+  const location = useLocation();
+
+  console.log(location.pathname);
+
   return (
-    <div className={s.wrapper}>
-      <div className={s.header}>
-       
-        <div className={s.inputCenter}>
-          <div className={s.inputWrapper}>
-            <Input placeholder="Search" className={s.input} aria-label="Search bar" />
-            <button className={s.searchBtn} aria-description="Search button" >
+    <header className={s.header}>
+      <div className="container">
+        <div className={s.header__inner}>
+          <div className={s.header__logo}></div>
+          <nav className={s.header__nav}>
+            <ul className={s.header__list}>
+              {navbar.map((item) => {
+                return (
+                  <li
+                    key={item.to}
+                    className={`${s["header__list-item"]} ${
+                      location.pathname === item.to
+                        ? s["header__list-item--active"]
+                        : ""
+                    }`}
+                  >
+                    <Link className={s["header__list-item-link"]} to={item.to}>
+                      {item.title}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <div className={s.header__icons}>
+            <button className={s.header__icons_btn}>
               <svg
+                className={s.header__icons_icon}
+                viewBox="0 0 20 20"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className={s.search}
-                viewBox="0 -960 960 960"
               >
-                <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                <path
+                  d="M19 19L13.8033 13.8033M13.8033 13.8033C15.1605 12.4461 16 10.5711 16 8.5C16 4.35786 12.6421 1 8.5 1C4.35786 1 1 4.35786 1 8.5C1 12.6421 4.35786 16 8.5 16C10.5711 16 12.4461 15.1605 13.8033 13.8033Z"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button className={s.header__icons_btn}>
+              <svg
+                className={s.header__icons_icon}
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.8569 15.0817C14.7514 14.857 16.5783 14.4116 18.3111 13.7719C16.8743 12.177 15.9998 10.0656 15.9998 7.75V7.04919C15.9999 7.03281 16 7.01641 16 7C16 3.68629 13.3137 1 10 1C6.68629 1 4 3.68629 4 7L3.9998 7.75C3.9998 10.0656 3.12527 12.177 1.68848 13.7719C3.4214 14.4116 5.24843 14.857 7.14314 15.0818M12.8569 15.0817C11.92 15.1928 10.9666 15.25 9.9998 15.25C9.03317 15.25 8.07988 15.1929 7.14314 15.0818M12.8569 15.0817C12.9498 15.3711 13 15.6797 13 16C13 17.6569 11.6569 19 10 19C8.34315 19 7 17.6569 7 16C7 15.6797 7.05019 15.3712 7.14314 15.0818"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
           </div>
         </div>
-        <div className={s.users}>
-          <div className={s.streakWrapper}>
-            <span className={s.counter} aria-description="Streak counter" >10</span>
-            <button className={s.streak} aria-description="Streak active button" >
-              <img className={s.fire} src="/img/streak.png" alt="" />
-            </button>
-          </div>
-
-          <button className={s.notificationsBtn} aria-description="Notifications button" >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={s.notifications}
-              viewBox="0 -960 960 960"
-            >
-              <path d="M80-560q0-100 44.5-183.5T244-882l47 64q-60 44-95.5 111T160-560H80Zm720 0q0-80-35.5-147T669-818l47-64q75 55 119.5 138.5T880-560h-80ZM160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z" />
-            </svg>
-          </button>
-          <button className={s.pfpBtn} aria-description="Profile button" >
-            <img
-              className={s.pfp}
-              src="/img/login/poster_1.jpg"
-              alt="User profile picture"
-            />
-          </button>
-        </div>
       </div>
-    </div>
+    </header>
   );
 };
-
-export default Header;

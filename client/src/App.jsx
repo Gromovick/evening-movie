@@ -1,9 +1,9 @@
-import "./App.css";
+import "./styles/index.scss";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { Routes, Route } from "react-router";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import { useSelector } from "react-redux";
-import MainPage from "./components/MainPage";
+import MainPage from "./pages/MainPage/MainPage";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 
 function App() {
@@ -19,8 +19,23 @@ function App() {
           </>
         )}
         {/* <Route path="/main" element={<MainPage />} /> */}
-        {/* <Route path="*" element={<MainPage />} /> */}
-        <Route path="/" element={<MainLayout />} />
+        <Route
+          path="*"
+          element={
+            <MainLayout>
+              <MainPage />{" "}
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              {" "}
+              <MainPage />{" "}
+            </MainLayout>
+          }
+        />
       </Routes>
     </div>
   );

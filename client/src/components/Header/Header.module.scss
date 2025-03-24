@@ -1,0 +1,57 @@
+@use "../../styles/_media.scss" as *;
+@use "../../styles/_mixins.scss" as *;
+.header {
+  padding-bottom: 50px;
+  &__inner {
+    // background: green;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+  }
+
+  &__nav {
+    background: #0f0f0f;
+    border: 3px solid #1f1f1f;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  &__list {
+    display: flex;
+    gap: 16px;
+    list-style: none;
+
+    &-item {
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      @include hover {
+        background: #1a1a1a;
+      }
+
+      &--active {
+        background: #1a1a1a;
+      }
+
+      &-link {
+        color: #fff;
+      }
+    }
+  }
+
+  &__icons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    &_icon {
+      width: 18px;
+      & path {
+        stroke: #fff;
+      }
+    }
+    &_btn {
+      @include reset-button;
+    }
+  }
+}
