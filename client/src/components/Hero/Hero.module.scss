@@ -1,14 +1,71 @@
+@use "../../styles/_mixins" as *;
+
 .hero {
   &__inner {
   }
   &__slider_wrapper {
     width: 100%;
+    position: relative;
+    aspect-ratio: 16/9;
+    display: flex;
   }
 
   &__slider {
     background: green;
     width: 100%;
     aspect-ratio: 16/9;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+
+    &_content {
+      position: relative;
+      z-index: 1;
+      // pointer-events: none;
+      align-self: flex-end;
+      max-width: 1500px;
+      margin-inline: auto;
+      padding-inline: 20px;
+      padding-bottom: 20px;
+    }
+
+    &_pagination {
+      @include reset-button;
+      width: 16px;
+      height: 4px;
+      background: #333333;
+      border-radius: 100px;
+      &.active {
+        background: #e50000;
+        width: 23px;
+      }
+
+      &_wrapper {
+        display: flex;
+        gap: 3px;
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    &_controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &_control {
+      @include reset-button;
+      background: #0f0f0f;
+      padding: 17px;
+      border-radius: 8px;
+      border: 1px solid #1f1f1f;
+      &_icon {
+        width: 21px;
+        & path {
+          stroke: #fff;
+        }
+      }
+    }
   }
   &__slide {
     width: 100% !important;

@@ -2,10 +2,11 @@ import React from "react";
 import s from "./Slider.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+// import { Pagination } from 'swiper/modules';
 const Slider = ({ children, className, ...props }) => {
   return (
     <Swiper
-      slidesPerView={1}
+      // slidesPerView={1}
       {...props}
       className={`${"mySwiper"} ${className}`}
     >
