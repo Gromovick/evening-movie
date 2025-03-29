@@ -1,0 +1,23 @@
+@use "../../styles/_mixins.scss" as *;
+@use "../../styles/_media.scss" as *;
+
+.section {
+  &__inner {
+    border-radius: toRem(12);
+    border: 1px solid var(--black-15);
+    padding-inline: toRem(50);
+  }
+
+  &__title {
+    font-size: toRem(20);
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--white);
+    padding: toRem(10);
+    padding-inline: toRem(24);
+    background: var(--red-45);
+    width: fit-content;
+    border-radius: 8px;
+    transform: translateY(-50%);
+  }
+}

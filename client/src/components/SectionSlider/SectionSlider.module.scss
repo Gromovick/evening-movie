@@ -1,0 +1,61 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/media" as *;
+
+.slider {
+  &__wrapper {
+  }
+  &__top_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: toRem(50);
+  }
+  &__title {
+    font-size: toRem(38);
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--white);
+  }
+  &__controls {
+    display: flex;
+    gap: toRem(16);
+    align-items: center;
+    padding: toRem(16);
+    background: var(--black-06);
+    border-radius: toRem(12);
+    border: 1px solid var(--black-12);
+    &_btn {
+      @include reset-button;
+
+      padding: toRem(14);
+      background: var(--black-10);
+      border-radius: toRem(8);
+      border: 1px solid var(--black-12);
+      &_icon {
+        width: toRem(18);
+        height: toRem(18);
+        display: flex;
+        align-items: center;
+        & path {
+          stroke: var(--white);
+          stroke-width: 2px;
+        }
+      }
+    }
+  }
+  &__pagination {
+    display: flex;
+    gap: toRem(3);
+    &_btn {
+      @include reset-button;
+      border-radius: 100px;
+      height: toRem(4);
+      width: toRem(17);
+      background: var(--black-20);
+      &.active {
+        width: toRem(23);
+        background: var(--red-45);
+      }
+    }
+  }
+}
