@@ -19,6 +19,34 @@ $viewMin: 320; // YOUR VIEW MIN WIDTH HERE
   $b: -$viewMin * $s + $min;
   width: clamp(#{$min}px, #{$b}px + #{$s * 100}vw, #{$max}px);
 }
+@function fluid-rem($max, $min) {
+  @if $viewMax == $viewMin {
+    @error "viewMax and viewMin must be different values.";
+  }
+
+  // Calculate slope and base
+  $s: ($max - $min) / ($viewMax - $viewMin);
+  $b: -$viewMin * $s + $min;
+
+  // Convert to rem units
+  $remValue: clamp(
+    #{math.div($min, 16)}rem,
+    calc(#{math.div($b, 16)}rem + #{($s * 100)}vw),
+    #{math.div($max, 16)}rem
+  );
+
+  @return $remValue;
+}
+
+@mixin text-limit($limit: 1, $break: true) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: #{$limit};
+  @if $break {
+    word-break: break-all;
+  }
+}
 
 @mixin reset-link {
   color: inherit;

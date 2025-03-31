@@ -6,18 +6,39 @@
     border-radius: toRem(12);
     border: 1px solid var(--black-15);
     padding-inline: toRem(50);
+    padding-bottom: toRem(50);
+    @include tablet {
+      padding-inline: toRem(40);
+      padding-bottom: toRem(40);
+    }
+    @include mobile {
+      padding: 0;
+      border: none;
+      padding-bottom: toRem(25);
+    }
   }
 
   &__title {
-    font-size: toRem(20);
+    font-size: fluid-rem(20, 16);
     font-weight: 600;
     line-height: 1.5;
     color: var(--white);
-    padding: toRem(10);
-    padding-inline: toRem(24);
-    background: var(--red-45);
-    width: fit-content;
-    border-radius: 8px;
-    transform: translateY(-50%);
+    @include text-limit(1);
+    &_wrapper {
+      padding: toRem(10);
+      padding-inline: toRem(24);
+      background: var(--red-45);
+      width: fit-content;
+      max-width: 35%;
+      border-radius: 8px;
+      transform: translateY(-50%);
+      @include tablet {
+        padding: toRem(8);
+        padding-inline: toRem(20);
+      }
+      @include mobile {
+        display: none;
+      }
+    }
   }
 }

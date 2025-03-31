@@ -1,0 +1,86 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/media" as *;
+
+.card {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: fluid-rem(30, 20); //20
+  background: var(--black-10);
+  border-radius: toRem(12);
+  border: 1px solid var(--black-15);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  @include mobile {
+  }
+
+  &__grid {
+    position: relative;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(5);
+    margin-bottom: toRem(5);
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #1a1a1a00, #1a1a1a);
+      z-index: 1;
+    }
+
+    &_img {
+      aspect-ratio: 35/41;
+      width: 100%;
+      object-fit: cover;
+      border-radius: toRem(10);
+    }
+  }
+  &__link {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    align-items: center;
+    gap: toRem(15);
+    margin-top: toRem(10);
+    &_text {
+      font-size: fluid-rem(18, 14);
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--white);
+      @include text-limit(1);
+      &_wrapper {
+        flex-grow: 1;
+      }
+    }
+    &_icon {
+      flex-shrink: 0;
+      width: fluid-rem(19, 12);
+      & path {
+        stroke: var(--white);
+      }
+    }
+
+    &_top {
+      color: var(--white);
+      font-weight: 600;
+      line-height: 1.5;
+      font-size: fluid-rem(16, 12);
+      @include text-limit(1);
+      &_wrapper {
+        padding: fluid-rem(10, 8);
+        background: var(--red-45);
+        max-width: 50%;
+        width: fit-content;
+        border-radius: toRem(5);
+        margin-bottom: toRem(5);
+      }
+    }
+  }
+}

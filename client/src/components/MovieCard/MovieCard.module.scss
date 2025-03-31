@@ -1,0 +1,78 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/media" as *;
+
+.card {
+  padding: fluid-rem(20, 12); // 20 / 12
+  border-radius: toRem(10);
+  background: var(--black-10);
+  border: 1px solid var(--black-15);
+  &__link {
+  }
+  &__poster {
+    width: 100%;
+    aspect-ratio: 0.87/1;
+    object-fit: cover;
+    border-radius: toRem(12);
+  }
+  &__info {
+    display: flex;
+    align-items: center;
+    &:has(.card__info_wrapper:nth-child(2)) {
+      justify-content: space-between; // If two children exist, push them apart
+    }
+    &_wrapper {
+      flex-shrink: 0;
+      background: var(--black-08);
+      border-radius: toRem(51);
+      border: 1px solid var(--black-15);
+      padding: fluid-rem(6, 4); // 6 / 4
+      &__fill {
+        flex-grow: 1;
+        justify-items: center;
+      }
+    }
+
+    &_icon {
+      width: fluid-rem(20, 16); // 20 / 16
+      flex-shrink: 0;
+      & path {
+        fill: var(--grey-60);
+      }
+    }
+    &_text {
+      color: var(--grey-60);
+      font-size: fluid-rem(16, 12); // 16 / 12
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    &_content {
+      display: flex;
+      gap: toRem(5);
+    }
+
+    &_duration {
+      &_text {
+      }
+      &_icon {
+      }
+    }
+    &_watching {
+      &_text {
+      }
+      &_icon {
+      }
+    }
+    &_seasons {
+      &_text {
+      }
+      &_icon {
+      }
+    }
+    &_release {
+      //   text-align: center;
+      &_text {
+      }
+    }
+  }
+}

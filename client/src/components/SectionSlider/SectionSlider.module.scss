@@ -1,7 +1,44 @@
 @use "../../styles/mixins" as *;
 @use "../../styles/media" as *;
 
+#prev {
+  font-size: 1px;
+}
+#next {
+  font-size: 1px;
+}
+
 .slider {
+  &__wrapper {
+    margin-top: fluid-rem(100, 35);
+  }
+  & :global {
+    .swiper-slide {
+      width: fit-content;
+    }
+  }
+  &__scroll {
+    &_wrapper {
+      margin-top: toRem(20);
+      display: none; //flex
+      justify-content: center;
+      align-items: center;
+      @include mobile {
+        display: flex;
+      }
+    }
+    &_bar {
+      border-radius: toRem(20);
+      height: toRem(5);
+      width: 63%;
+      background: var(--black-20);
+
+      & div {
+        background: var(--red-45);
+      }
+    }
+  }
+
   &__wrapper {
   }
   &__top_content {
@@ -9,12 +46,15 @@
     justify-content: space-between;
     align-items: center;
     gap: toRem(50);
+    margin-bottom: fluid-rem(50, 40);
   }
   &__title {
-    font-size: toRem(38);
+    font-size: fluid-rem(38, 24);
     font-weight: 700;
     line-height: 1.5;
     color: var(--white);
+    overflow: hidden;
+    @include text-limit(1);
   }
   &__controls {
     display: flex;
@@ -24,6 +64,10 @@
     background: var(--black-06);
     border-radius: toRem(12);
     border: 1px solid var(--black-12);
+    @include tablet {
+      padding: toRem(12);
+      gap: toRem(12);
+    }
     &_btn {
       @include reset-button;
 
@@ -31,6 +75,11 @@
       background: var(--black-10);
       border-radius: toRem(8);
       border: 1px solid var(--black-12);
+
+      @include tablet {
+        padding: toRem(10);
+      }
+
       &_icon {
         width: toRem(18);
         height: toRem(18);
@@ -52,9 +101,18 @@
       height: toRem(4);
       width: toRem(17);
       background: var(--black-20);
+      transition: width 0.25s ease-in-out;
+      transform-origin: center;
       &.active {
         width: toRem(23);
         background: var(--red-45);
+        @include tablet {
+          width: toRem(18);
+        }
+      }
+
+      @include tablet {
+        width: toRem(14);
       }
     }
   }
