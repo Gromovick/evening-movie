@@ -1,0 +1,214 @@
+@use "../../styles/_mixins" as *;
+@use "../../styles/_media" as *;
+
+.big_slider {
+  &__inner {
+  }
+  &__slider_wrapper {
+    width: 100%;
+    position: relative;
+    aspect-ratio: 16/9;
+    display: flex;
+    @include mobile {
+      aspect-ratio: 76.5/100;
+    }
+  }
+
+  &__slider {
+    width: 100%;
+    aspect-ratio: 16/9;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    @include mobile {
+      aspect-ratio: 76.5/100;
+    }
+    &_content {
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      align-self: flex-end;
+      max-width: toRem(1500);
+      margin-inline: auto;
+      padding-inline: fluid-rem(20, 12);
+      padding-bottom: fluid-rem(20, 12);
+      @include mobile {
+        width: 100%;
+      }
+    }
+
+    &_pagination {
+      @include reset-button;
+      width: toRem(16);
+      height: toRem(4);
+      background: #333333;
+      border-radius: 100px;
+      &.active {
+        background: #e50000;
+        width: toRem(23);
+      }
+
+      &_wrapper {
+        display: flex;
+        gap: toRem(3);
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    &_watch {
+      display: flex;
+      gap: fluid-rem(20, 16);
+      justify-content: center;
+      margin-bottom: fluid-rem(50, 0);
+
+      @include mobile {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      @include tablet {
+        margin: 0;
+      }
+
+      & svg {
+        & path {
+          stroke: #fff;
+        }
+      }
+
+      & button {
+        @include reset-button;
+        background: #0f0f0f;
+        border: 1px solid #262626;
+        border-radius: 8px;
+        padding: fluid-rem(17, 12);
+        display: flex;
+        justify-content: center;
+        // align-items: center;
+        & svg {
+          stroke: #fff;
+          // fill: #fff;
+        }
+      }
+      &_sub {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: fluid-rem(20, 16);
+      }
+    }
+    &_play {
+      padding: fluid-rem(14, 10);
+      padding-inline: fluid-rem(24, 20);
+      background: #e50000 !important;
+      display: flex;
+      gap: 5px;
+      border: none !important;
+      align-self: stretch;
+      & svg {
+        width: fluid-rem(18, 16);
+        & path {
+          fill: #fff;
+        }
+      }
+      &_text {
+        @include fluid-text(18, 14);
+        line-height: 1.5;
+        color: #fff;
+      }
+    }
+
+    &_add {
+      & svg {
+        width: fluid-rem(23, 20);
+      }
+    }
+
+    &_thumb {
+      & svg {
+        width: fluid-rem(23, 20);
+      }
+    }
+
+    &_controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &_control {
+      @include reset-button;
+      background: #0f0f0f;
+      padding: fluid-rem(17, 12);
+      border-radius: 8px;
+      border: 1px solid #1f1f1f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &_icon {
+        width: fluid-rem(21, 16);
+        & path {
+          stroke: #fff;
+        }
+      }
+    }
+  }
+  &__slide {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative;
+    display: flex !important;
+    justify-content: center;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #14141400, #141414);
+      z-index: -1;
+      @include tablet {
+        // background: linear-gradient(180deg, #14141400 80%, #141414);
+        height: 130%;
+        bottom: 0;
+      }
+    }
+    &_poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    &_content {
+      margin-inline: auto;
+
+      width: 100%;
+      max-width: toRem(1200);
+      text-align: center;
+      align-self: flex-end;
+      margin-bottom: fluid-rem(27, 16);
+    }
+    &_title {
+      @include fluid-text(38, 24);
+      line-height: 1.5;
+      font-weight: 700;
+      color: #fff;
+      overflow: hidden;
+      @include text-limit(2);
+    }
+    &_desc {
+      @include fluid-text(18, 14);
+      line-height: 1.5;
+      color: #999999;
+      overflow: hidden;
+      @include text-limit(2);
+
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+}

@@ -2,7 +2,24 @@
 @use "../../styles/_media.scss" as *;
 
 .section {
+  --paddings: 85;
+  // margin-top: toRem(175);
+  padding-top: toRem(85);
+  padding-bottom: toRem(85);
+
+  @include tablet {
+    --paddings: 50;
+    padding-top: toRem(50);
+    padding-bottom: toRem(50);
+  }
+  @include mobile {
+    --paddings: 35;
+    padding-top: toRem(35);
+    padding-bottom: toRem(35);
+  }
+
   &__inner {
+    position: relative;
     border-radius: toRem(12);
     border: 1px solid var(--black-15);
     padding-inline: toRem(50);
@@ -25,6 +42,8 @@
     color: var(--white);
     @include text-limit(1);
     &_wrapper {
+      position: absolute;
+      top: 0;
       padding: toRem(10);
       padding-inline: toRem(24);
       background: var(--red-45);

@@ -1,0 +1,27 @@
+@use "../../styles/_mixins" as *;
+@use "../../styles/_media" as *;
+
+.review {
+  padding: fluid-rem(40, 24);
+  margin-bottom: fluid-rem(20, 16);
+  background: var(--black-06);
+  border: 1px solid var(--black-15);
+  border-radius: toRem(12);
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: fluid-rem(20, 16);
+  }
+  &__nickname {
+    color: var(--white);
+    font-size: fluid-rem(20, 16);
+    @include text-limit(1);
+  }
+  &__content {
+    font-weight: 400;
+    font-size: fluid-rem(18, 14);
+    color: var(--grey-60);
+    @include text-limit(5, false);
+  }
+}

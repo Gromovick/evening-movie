@@ -1,0 +1,21 @@
+@use "../../styles/_mixins" as *;
+@use "../../styles/_media" as *;
+
+.cast {
+  &__slider {
+    :global {
+      .swiper-slide {
+        width: fit-content;
+      }
+    }
+
+    &_wrapper {
+    }
+    &_img {
+      border-radius: toRem(20);
+      width: fluid-rem(120, 70);
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+  }
+}

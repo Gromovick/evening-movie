@@ -1,0 +1,31 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/media" as *;
+
+.rating {
+  display: flex;
+  gap: toRem(2);
+  align-items: center;
+}
+
+.star {
+  width: fluid-rem(18, 14);
+}
+
+.wrapped {
+  background: var(--black-08);
+  border: 1px solid var(--black-15);
+  padding: fluid-rem(6, 4);
+  padding-inline: fluid-rem(10, 8);
+  align-items: center;
+  border-radius: toRem(50);
+}
+
+.wrapper {
+  display: flex;
+  gap: toRem(2);
+}
+.counter {
+  font-weight: 600;
+  font-size: fluid-rem(18, 14);
+  color: var(--grey-60);
+}

@@ -1,0 +1,74 @@
+@use "../../styles/_mixins" as *;
+@use "../../styles/_media" as *;
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: fluid-rem(20, 15);
+  &_wide {
+    justify-content: space-between;
+  }
+
+  &__button {
+    @include reset-button;
+    border: 1px solid var(--black-15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:first-child {
+      & svg {
+        transform: rotateZ(180deg);
+      }
+    }
+
+    &_svg {
+      width: fluid-rem(18, 15);
+      & path {
+        stroke: var(--white);
+      }
+    }
+
+    &_style {
+      &_1 {
+        background: var(--black-06);
+        border-radius: toRem(8);
+        padding: fluid-rem(14, 12);
+      }
+      &_2 {
+        background: var(--black-10);
+        border-radius: toRem(8);
+        padding: fluid-rem(14, 12);
+      }
+      &_3 {
+        aspect-ratio: 1/1;
+        background: var(--black-08);
+        border-radius: 50%;
+        padding: fluid-rem(14, 12);
+        & svg {
+          & path {
+            stroke: var(--grey-60);
+          }
+        }
+      }
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: toRem(3);
+  &__dot {
+    @include reset-button;
+    width: toRem(17);
+    height: toRem(4);
+    background: var(--black-20);
+    border-radius: toRem(100);
+    &__active {
+      width: toRem(23);
+      background: var(--red-45);
+    }
+  }
+}

@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import s from "./SectionSlider.module.scss";
 import Slider from "../Slider/Slider";
 import "swiper/css/scrollbar";
 import { Navigation } from "swiper/modules";
 import { Scrollbar } from "swiper/modules";
 import { FreeMode } from "swiper/modules";
-import { activeMobile } from "../../utils/media";
-import useWindowSize from "../../hooks/useWindowSize";
+
+import useWindowInfo from "../../hooks/useWindowInfo";
 
 const types = {
   wide: {},
@@ -24,12 +24,11 @@ const types = {
     tablet: {
       slidesPerView: 2.5,
       spaceBetween: 15,
-      freeMode: false,
+      // freeMode: false,
     },
     mobile: {
       slidesPerView: 1.25,
       spaceBetween: 15,
-      freeMode: true,
     },
   },
   small: {
@@ -46,22 +45,21 @@ const types = {
     tablet: {
       slidesPerView: 3,
       spaceBetween: 15,
-      freeMode: false,
+      // freeMode: true,
     },
     mobile: {
       slidesPerView: 1.5,
       spaceBetween: 15,
-      freeMode: true,
+      // freeMode: true,
     },
   },
 };
 
 const SectionSlider = ({ title, children, slides, type }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [ready, setReady] = useState(false);
   const slider = useRef(null);
-  const mobile = activeMobile();
-  const { w, h } = useWindowSize();
-
+  const { width, height, device } = useWindowInfo();
   const scrollRef = useRef(null);
 
   const handleActiveSlide = useCallback((index) => {
@@ -84,7 +82,7 @@ const SectionSlider = ({ title, children, slides, type }) => {
       <div className={s.slider__wrapper}>
         <div className={s.slider__top_content}>
           <h3 className={s.slider__title}>{title ? title : "No title"}</h3>
-          {w >= mobile && (
+          {device !== "mobile" && (
             <div className={s.slider__controls}>
               <button
                 onClick={handleScrollPrev}
@@ -146,15 +144,19 @@ const SectionSlider = ({ title, children, slides, type }) => {
         </div>
 
         <Slider
+          rewind={true}
+          freeMode={{ enable: true, sticky: true }}
           modules={[FreeMode, Scrollbar, Navigation]}
           scrollbar={{
-            el: `.${s.slider__scroll_bar}`,
+            el: scrollRef.current,
             draggable: true,
             hide: false,
+            dragSize: 50,
           }}
           className={s.slider}
           onSwiper={(swiper) => {
             slider.current = swiper;
+            setReady(true);
           }}
           onSlideChange={(e) => {
             setCurrentSlide(e.activeIndex);
@@ -163,8 +165,8 @@ const SectionSlider = ({ title, children, slides, type }) => {
         >
           {children}
         </Slider>
-        <div ref={scrollRef} className={s.slider__scroll_wrapper}>
-          <div className={s.slider__scroll_bar}></div>
+        <div className={s.slider__scroll_wrapper}>
+          <div ref={scrollRef} className={s.slider__scroll_bar}></div>
         </div>
       </div>
     </>

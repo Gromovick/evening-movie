@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./MovieCard.module.scss";
 import { Link } from "react-router";
+import Rating from "../Rating/Rating";
 const MovieCard = ({ params }) => {
   return (
     <div className={s.card}>
@@ -121,6 +122,24 @@ const MovieCard = ({ params }) => {
                   className={`${s.card__info_release_text} ${s.card__info_text}`}
                 >
                   Released at 14 April 2023
+                </p>
+              </div>
+            </div>
+          )}
+          {params?.rating && (
+            <div
+              className={`${s.card__info_wrapper} ${
+                params?.rating?.fill ? s.card__info_wrapper__fill : ""
+              }`}
+            >
+              <div
+                className={` ${s.card__info_rating} ${s.card__info_content}`}
+              >
+                <Rating rating={8.9} starWidth={12} starGap={2} count={5} />
+                <p
+                  className={`${s.card__info_release_text} ${s.card__info_text}`}
+                >
+                  20K
                 </p>
               </div>
             </div>

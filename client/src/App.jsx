@@ -1,3 +1,4 @@
+import "./App.scss";
 import "./styles/index.scss";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { Routes, Route } from "react-router";
@@ -5,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import { useSelector } from "react-redux";
 import MainPage from "./pages/MainPage/MainPage";
 import MainLayout from "./layouts/MainLayout/MainLayout";
+import MoviePage from "./pages/MoviePage/MoviePage";
 
 function App() {
   const user = useSelector((state) => state.user.user);
@@ -33,6 +35,15 @@ function App() {
             <MainLayout>
               {" "}
               <MainPage />{" "}
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/movies/:id"
+          element={
+            <MainLayout>
+              {" "}
+              <MoviePage />{" "}
             </MainLayout>
           }
         />

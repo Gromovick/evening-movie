@@ -5,9 +5,9 @@ import "swiper/css";
 
 const BREAKPOINT_MAP = {
   mobile: 10,
-  tablet: 550, // 780
-  desktop: 780, //1280
-  initial: 1440, // 1440
+  tablet: 750, // 1280
+  desktop: 1280, //1440
+  initial: 1440, // 1920
 };
 
 const Slider = ({ children, className, breakpoints, ...props }) => {
@@ -17,20 +17,19 @@ const Slider = ({ children, className, breakpoints, ...props }) => {
     }
     let mappedBreakpoints = {};
     for (let key in breakpoints) {
-      console.log(key);
-
       if (BREAKPOINT_MAP[key]) {
         mappedBreakpoints[BREAKPOINT_MAP[key]] = breakpoints[key];
       }
     }
+    console.log("Converted Breakpoints:", mappedBreakpoints);
     return mappedBreakpoints;
   }, [breakpoints]);
 
   return (
     <Swiper
       {...props}
-      className={`${"mySwiper"} ${className}`}
-      breakpoints={convertedBreakpoints}
+      className={`${s.mySwiper} ${className}`}
+      breakpoints={{ ...convertedBreakpoints }}
     >
       {children}
     </Swiper>

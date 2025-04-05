@@ -1,0 +1,31 @@
+@use "../../styles/_mixins" as *;
+@use "../../styles/_media" as *;
+
+.part {
+  &__title {
+    font-weight: 500;
+    font-size: fluid-rem(18, 14);
+    color: var(--grey-60);
+    line-height: 1.5;
+    &_wrapper {
+      display: flex;
+      align-items: center;
+      margin-bottom: fluid-rem(14, 10);
+      gap: toRem(5);
+    }
+  }
+  &__content {
+  }
+  &__icon_wrapper {
+    display: flex;
+    align-items: center;
+    & svg {
+      width: fluid-rem(18, 15) !important;
+      height: auto !important;
+      margin-bottom: 2px;
+      & path {
+        stroke: var(--grey-60);
+      }
+    }
+  }
+}
