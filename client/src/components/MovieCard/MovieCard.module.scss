@@ -6,18 +6,37 @@
   border-radius: toRem(10);
   background: var(--black-10);
   border: 1px solid var(--black-15);
+
+  @include hover {
+    .card__genres_content {
+      transform: translateY(0%);
+    }
+  }
+
   &__link {
   }
   &__poster {
+    position: absolute;
     width: 100%;
-    aspect-ratio: 0.87/1;
+    height: 100%;
     object-fit: cover;
-    border-radius: toRem(12);
+    border-radius: inherit;
+    top: 0;
+    left: 0;
+    &_wrapper {
+      position: relative;
+      border-radius: toRem(12);
+      aspect-ratio: 27/40;
+      overflow: hidden;
+    }
+  }
+  &__content {
+    margin-left: toRem(5);
   }
   &__info {
     display: flex;
     align-items: center;
-    margin-top: fluid-rem(20, 12);
+    margin-top: fluid-rem(14, 12);
     &:has(.card__info_wrapper:nth-child(2)) {
       justify-content: space-between; // If two children exist, push them apart
     }
@@ -75,7 +94,6 @@
       }
     }
     &_release {
-
       &_text {
       }
     }
@@ -86,6 +104,57 @@
       }
       &_back {
       }
+    }
+  }
+
+  &__date {
+    @include text-limit(1);
+
+    &_wrapper {
+      font-size: fluid-rem(16, 14);
+      line-height: 1.5;
+      color: var(--grey-60);
+      display: flex;
+      align-items: flex-end;
+      gap: toRem(2);
+      // margin-bottom: fluid-rem(12, 8);
+      padding-top: fluid-rem(8, 5);
+      font-weight: 400;
+    }
+  }
+  &__country {
+    margin: 0;
+    @include text-limit(1);
+  }
+  &__title {
+    font-size: fluid-rem(22, 16);
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--white);
+    @include text-limit(1);
+  }
+
+  &__genres {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: fluid-rem(10, 8);
+    color: var(--white);
+    font-weight: 400;
+    &_wrapper {
+      padding: fluid-rem(8, 6);
+      padding-inline: fluid-rem(14, 12);
+      border-radius: toRem(8);
+    }
+    &_content {
+      transform: translateY(100%);
+      transition: transform 0.35s ease-in-out;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background: var(--black-06-75);
+      padding: fluid-rem(16, 10);
     }
   }
 }

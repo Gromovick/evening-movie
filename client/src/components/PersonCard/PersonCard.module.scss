@@ -1,0 +1,29 @@
+@use "../../styles/_mixins" as *;
+@use "../../styles/_media" as *;
+
+.person {
+  display: flex;
+  gap: fluid-rem(12, 8);
+  color: var(--white);
+}
+.photo {
+  width: fluid-rem(60, 50);
+  object-fit: cover;
+  border-radius: toRem(8);
+}
+.personContent {
+  display: flex;
+  flex-direction: column;
+  gap: toRem(0);
+}
+.name {
+  line-height: 1.5;
+  font-size: fluid-rem(18, 16);
+  font-weight: 500;
+}
+.from {
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: fluid-rem(16, 14);
+  color: var(--grey-60);
+}

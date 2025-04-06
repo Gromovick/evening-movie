@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import s from "./MoviePage.module.scss";
 import BigSlider from "../../components/BigSlider/BigSlider";
 import CastSlider from "../../components/CastSlider/CastSlider";
@@ -7,9 +7,14 @@ import ReviewSlider from "../../components/ReviewSlider/ReviewSlider";
 import MovieInfoPart from "../../components/MovieInfoPart/MovieInfoPart";
 import BlackBox from "../../components/BlackBox/BlackBox";
 import Rating from "../../components/Rating/Rating";
+import PersonCard from "../../components/PersonCard/PersonCard";
+import SliderControls from "../../components/SliderControls/SliderControls";
 const MoviePage = () => {
-  const slideNext = useRef(() => {});
-  const slidePrev = useRef(() => {});
+  const castControls = useRef({});
+  const handleCastControls = useCallback(({ next, prev }) => {
+    castControls.current.slideNext = next;
+    castControls.current.slidePrev = prev;
+  }, []);
 
   return (
     <section className={s.movie}>
@@ -46,55 +51,15 @@ const MoviePage = () => {
                     Cast
                   </h4>
                   <div className={s.movie__cast_controls}>
-                    <button
-                      className={s.movie__cast_control}
-                      onClick={() => slidePrev.current?.()}
-                    >
-                      <svg
-                        className={s.movie__cast_control_svg}
-                        viewBox="0 0 24 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M13.75 1.25L22.5 10M22.5 10L13.75 18.75M22.5 10H1.5"
-                          stroke="white"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </button>
-                    <button
-                      className={s.movie__cast_control}
-                      onClick={() => slideNext.current?.()}
-                    >
-                      <svg
-                        className={s.movie__cast_control_svg}
-                        viewBox="0 0 24 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M13.75 1.25L22.5 10M22.5 10L13.75 18.75M22.5 10H1.5"
-                          stroke="white"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </button>
+                    <SliderControls
+                      pagination={false}
+                      style={3}
+                      controls={castControls.current}
+                    />
                   </div>
                 </div>
 
-                <CastSlider
-                  customControls={({ next, prev }) => {
-                    console.log(next);
-
-                    slideNext.current = next;
-                    slidePrev.current = prev;
-                  }}
-                />
+                <CastSlider customControls={handleCastControls} />
               </div>
               <div
                 className={`${s.movie__reviews_wrapper} ${s.movie__section_wrapper}`}
@@ -258,6 +223,16 @@ const MoviePage = () => {
                     </BlackBox>
                   ))}
                 </div>
+              </MovieInfoPart>
+              <MovieInfoPart title="Director">
+                <BlackBox className={s.box__medium}>
+                  <PersonCard />
+                </BlackBox>
+              </MovieInfoPart>
+              <MovieInfoPart title="Music">
+                <BlackBox className={s.box__medium}>
+                  <PersonCard />
+                </BlackBox>
               </MovieInfoPart>
             </div>
           </div>

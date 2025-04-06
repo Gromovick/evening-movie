@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback, useMemo } from "react";
 import s from "./ReviewSlider.module.scss";
 import Slider from "../Slider/Slider";
 import { SwiperSlide } from "swiper/react";
 import ReviewCard from "../ReviewCard/ReviewCard";
 import SliderControls from "../SliderControls/SliderControls";
 
+// Винесено поза компонент — не буде перестворюватися
 const breakpoints = {
   initial: {
     slidesPerView: 2,
@@ -19,48 +20,65 @@ const breakpoints = {
 const ReviewSlider = () => {
   const sliderRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  // console.log("RERENDER");
+  
+  const handleSwiper = useCallback(
+    (swiper) => {
+      sliderRef.current = swiper;
+      swiper.on("slideChange", () => {
+        setActiveIndex(swiper.realIndex);
+      });
+    },
+    [sliderRef.current]
+  );
 
-  const handleSwiper = (swiper) => {
-    sliderRef.current = swiper;
-    swiper.on("slideChange", () => {
-      setActiveIndex(swiper.realIndex);
-    });
-  };
-  const handleSlideNext = () => {
+  const handleSlideNext = useCallback(() => {
     sliderRef.current?.slideNext();
-  };
+  }, [sliderRef.current]);
 
-  const handleSlidePrev = () => {
+  const handleSlidePrev = useCallback(() => {
     sliderRef.current?.slidePrev();
-  };
-  const handleSlideChange = (index) => {
-    sliderRef.current?.slideTo(index);
-  };
+  }, [sliderRef.current]);
+
+  const handleSlideChange = useCallback(
+    (index) => {
+      sliderRef.current?.slideTo(index);
+    },
+    [sliderRef.current]
+  );
+
+  const controls = useMemo(
+    () => ({
+      slideNext: handleSlideNext,
+      slidePrev: handleSlidePrev,
+    }),
+    [handleSlideNext, handleSlidePrev]
+  );
+
+  const pagination = useMemo(
+    () => ({
+      paginationCount: 3,
+      activeSlide: activeIndex,
+      changeSlide: handleSlideChange,
+    }),
+    [activeIndex, handleSlideChange]
+  );
+
   return (
     <>
       <Slider breakpoints={breakpoints} onSwiper={handleSwiper}>
-        <SwiperSlide>
-          <ReviewCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ReviewCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ReviewCard />
-        </SwiperSlide>
+        {[...Array(3)].map((_, i) => (
+          <SwiperSlide key={i}>
+            <ReviewCard />
+          </SwiperSlide>
+        ))}
       </Slider>
+
       <SliderControls
         style={3}
         wide={false}
-        pagination={{
-          paginationCount: 3,
-          activeSlide: activeIndex,
-          changeSlide: handleSlideChange,
-        }}
-        controls={{
-          slideNext: handleSlideNext,
-          slidePrev: handleSlidePrev,
-        }}
+        pagination={pagination}
+        controls={controls}
       />
     </>
   );

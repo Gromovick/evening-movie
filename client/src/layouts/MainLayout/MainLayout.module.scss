@@ -1,4 +1,5 @@
 @use "../../styles/_media.scss" as *;
+@use "../../styles/mixins" as *;
 
 .layout {
   display: flex;
@@ -9,4 +10,5 @@
 .content {
   flex-grow: 1;
   flex-shrink: 0;
+  padding-bottom: fluid-rem(100, 50);
 }

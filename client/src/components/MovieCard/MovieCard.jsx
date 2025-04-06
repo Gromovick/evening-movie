@@ -2,11 +2,42 @@ import React from "react";
 import s from "./MovieCard.module.scss";
 import { Link } from "react-router";
 import Rating from "../Rating/Rating";
-const MovieCard = ({ params }) => {
+import BlackBox from "../BlackBox/BlackBox";
+const MovieCard = ({
+  params,
+  showInfo = false,
+  info = {
+    country: "Unknown country",
+    date: "Unknown date",
+    title: "Unknown title",
+  },
+}) => {
   return (
     <div className={s.card}>
       <Link to={"/movie2"} className={s.card__link}>
-        <img className={s.card__poster} src="/img/group/1.webp" alt="" />
+        <div className={s.card__poster_wrapper}>
+          <div className={s.card__genres_content}>
+            <div className={s.card__genres}>
+              <BlackBox className={s.card__genres_wrapper}>Action</BlackBox>
+              <BlackBox className={s.card__genres_wrapper}>Fantasie</BlackBox>
+              <BlackBox className={s.card__genres_wrapper}>Triller</BlackBox>
+              <BlackBox className={s.card__genres_wrapper}>Horror</BlackBox>
+            </div>
+          </div>
+
+          <img className={s.card__poster} src="/img/group/1.webp" alt="" />
+        </div>
+        <div className={s.card__content}>
+          {showInfo ? (
+            <div className={s.card__date_wrapper}>
+              <p className={s.card__country}>{`${
+                info.country || "Unknown country"
+              },`}</p>
+              <p className={s.card__date}>{info.date || "Unknown date"}</p>
+            </div>
+          ) : null}
+          <p className={s.card__title}>{info?.title || "Unknown title"}</p>
+        </div>
         <div className={s.card__info}>
           {params?.duration && (
             <div

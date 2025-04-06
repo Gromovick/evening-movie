@@ -69,7 +69,11 @@ const MoviesSection = () => {
           type={"medium"}
         >
           <SwiperSlide>
-            <MovieCard params={{ rating: {}, watching: {} }} />
+            <MovieCard
+              info={{ title: "Stranger Things", date: "2016", country: "USA" }}
+              params={{ rating: {}, watching: {} }}
+              showInfo={true}
+            />
           </SwiperSlide>
           <SwiperSlide>
             <MovieCard params={{ duration: {}, season: {} }} />

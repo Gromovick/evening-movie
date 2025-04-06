@@ -9,20 +9,17 @@ const CastSlider = ({
 }) => {
   const slider = useRef(null);
 
-  const handleNext = useCallback(() => {
-    if (slider.current) {
-      slider.current.slideNext();
-    }
+  const handleSlideNext = useCallback(() => {
+    slider.current?.slideNext();
   }, [slider.current]);
-  const handlePrev = useCallback(() => {
-    if (slider.current) {
-      slider.current.slidePrev();
-    }
+
+  const handleSlidePrev = useCallback(() => {
+    slider.current?.slidePrev();
   }, [slider.current]);
 
   useEffect(() => {
     if (customControls) {
-      customControls({ next: handleNext, prev: handlePrev });
+      customControls({ next: handleSlideNext, prev: handleSlidePrev });
     }
   }, []);
 

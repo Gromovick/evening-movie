@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import s from "./MovieInfoPart.module.scss";
 
 const MovieInfoPart = ({
@@ -7,21 +7,18 @@ const MovieInfoPart = ({
   position = "left",
   children,
 }) => {
-  const renderIcon = useCallback(
-    (pos) => {
-      if (!icon) return null;
-      if (position === pos) {
-        return <div className={s.part__icon_wrapper}>{icon}</div>;
-      }
-    },
-    [icon, position]
-  );
+  console.log("RERENDER");
+
   return (
     <div className={s.part}>
       <div className={s.part__title_wrapper}>
-        {renderIcon("left")}
+        {position === "left" && icon && (
+          <div className={s.part__icon_wrapper}>{icon}</div>
+        )}
         <h4 className={s.part__title}>{title}</h4>
-        {renderIcon("right")}
+        {position === "right" && icon && (
+          <div className={s.part__icon_wrapper}>{icon}</div>
+        )}
       </div>
       <div className={s.part__content}>{children}</div>
     </div>
