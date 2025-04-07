@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import MainPage from "./pages/MainPage/MainPage";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import MoviePage from "./pages/MoviePage/MoviePage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
   const user = useSelector((state) => state.user.user);
@@ -44,6 +45,15 @@ function App() {
             <MainLayout>
               {" "}
               <MoviePage />{" "}
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/user/:id"
+          element={
+            <MainLayout>
+              {" "}
+              <ProfilePage />{" "}
             </MainLayout>
           }
         />

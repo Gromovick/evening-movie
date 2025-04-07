@@ -6,6 +6,20 @@
   padding-inline: var(--container-padding-x);
 
   &--hollow {
+    &--all {
+      &-inline {
+        padding-inline: 0;
+      }
+
+      &-right {
+        padding-right: 0;
+        margin: 0;
+      }
+
+      &-left {
+        padding-left: 0;
+      }
+    }
     &--desktop {
       @include desktop {
         &-inline {

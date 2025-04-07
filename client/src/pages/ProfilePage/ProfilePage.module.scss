@@ -1,0 +1,70 @@
+@use "../../styles/_mixins" as *;
+@use "../../styles/_media" as *;
+
+.profile {
+  position: relative;
+  &__back_img {
+    width: 100%;
+    max-height: 100vh;
+    aspect-ratio: 16/9;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  &__inner {
+    position: relative;
+    z-index: 2;
+    background: var(--black-15);
+  }
+  &__top_info {
+  }
+  &__banner {
+    width: 100%;
+    aspect-ratio: 1600/300;
+  }
+  &__info_content {
+    display: flex;
+    align-items: center;
+  }
+  &__image {
+    width: fluid-rem(300, 150);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    margin-top: fluid-rem(-75, -37.5);
+    &_wrapper {
+      flex-shrink: 0;
+    }
+  }
+  &__data {
+    flex-grow: 1;
+    &_top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  &__names_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  &__name {
+    color: var(--white);
+    line-height: 1.5;
+    font-weight: 700;
+    font-size: fluid-rem(41, 28);
+  }
+  &__username {
+    color: var(--grey-60);
+    line-height: 1;
+    font-weight: 500;
+    font-size: fluid-rem(24, 16);
+  }
+  &__subs {
+    &_wrapper {
+    }
+  }
+  &__description {
+  }
+}

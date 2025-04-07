@@ -32,17 +32,15 @@ const slides = [
 
 const Hero = () => {
   return (
-    <section id={s.hero} className="section">
-      <div className="container">
-        <div className={s.hero__inner}>
-          <BigSlider
-            controls={true}
-            slides={slides}
-            renderContent={({ slide, index }) => (
-              <SliderContent slide={slide} index={index} />
-            )}
-          />
-        </div>
+    <section id={s.hero}>
+      <div className={s.hero__inner}>
+        <BigSlider
+          controls={true}
+          slides={slides}
+          renderContent={({ slide, index }) => (
+            <SliderContent slide={slide} index={index} />
+          )}
+        />
       </div>
     </section>
   );
