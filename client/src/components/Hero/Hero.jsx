@@ -3,6 +3,8 @@ import s from "./Hero.module.scss";
 
 import BigSlider from "../BigSlider/BigSlider";
 import SliderContent from "../SliderContent/SliderContent";
+import { useQuery } from "@tanstack/react-query";
+import { MainPageApi } from "../../http/MainPageApi";
 const slides = [
   {
     poster: "/img/main/poster1.webp",
@@ -29,14 +31,23 @@ const slides = [
     desc: `It is set in a world where humanity is forced to live in cities surrounded by three enormous walls that protect them from gigantic man-eating humanoids referred to as Titans; the story follows Eren Yeager, who vows to exterminate the Titans after they bring about the destruction of his hometown and the death of his mother. `,
   },
 ];
-
+const query = {};
 const Hero = () => {
+  const { isSuccess, isPending, error, data, isFetching } = useQuery({
+    queryKey: ["hero_slider"],
+    queryFn: () => MainPageApi.getTrending(query, "movie"),
+    staleTime: 10 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
+
+  const result = data?.result.data.results;
+
   return (
     <section id={s.hero}>
       <div className={s.hero__inner}>
         <BigSlider
           controls={true}
-          slides={slides}
+          slides={result}
           renderContent={({ slide, index }) => (
             <SliderContent slide={slide} index={index} />
           )}

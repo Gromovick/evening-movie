@@ -2,20 +2,23 @@
 @use "../../styles/_media" as *;
 
 .content {
+  width: 100%;
   &__title {
     @include fluid-text(38, 24);
     line-height: 1.5;
     font-weight: 700;
-    color: #fff;
+    color: var(--white);
+
     overflow: hidden;
     @include text-limit(2);
   }
   &__desc {
     @include fluid-text(18, 14);
     line-height: 1.5;
-    color: #999999;
+    color: var(--white);
+    opacity: 0.8;
     overflow: hidden;
-    @include text-limit(2);
+    @include text-limit(5);
 
     @include mobile {
       display: none;

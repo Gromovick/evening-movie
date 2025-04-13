@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import s from "./MoviePage.module.scss";
 import BigSlider from "../../components/BigSlider/BigSlider";
 import CastSlider from "../../components/CastSlider/CastSlider";
@@ -9,18 +9,48 @@ import BlackBox from "../../components/BlackBox/BlackBox";
 import Rating from "../../components/Rating/Rating";
 import PersonCard from "../../components/PersonCard/PersonCard";
 import SliderControls from "../../components/SliderControls/SliderControls";
+import { useQuery } from "@tanstack/react-query";
+import { useLocation, useParams } from "react-router";
+import { MainPageApi } from "../../http/MainPageApi";
+import SliderContent from "../../components/SliderContent/SliderContent";
+const query = {};
 const MoviePage = () => {
+  const { id } = useParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const type = searchParams.get("type");
+  const { isSuccess, isPending, error, data, isFetching } = useQuery({
+    queryKey: ["movie", id],
+    queryFn: () => MainPageApi.getMovieById({ ...query, type }, id),
+    enabled: !!id,
+    staleTime: 10 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
+  const info = useMemo(() => {
+    return data?.result?.data;
+  });
+
   const castControls = useRef({});
   const handleCastControls = useCallback(({ next, prev }) => {
     castControls.current.slideNext = next;
     castControls.current.slidePrev = prev;
   }, []);
-
+  if (!isSuccess) {
+    return;
+  }
   return (
     <section className={s.movie}>
+      <BigSlider
+        slides={[info]}
+        controls={false}
+        rating={info.vote_average}
+        renderContent={({ slide, index }) => {
+
+          return <SliderContent slide={slide} index={index} />;
+        }}
+      />
       <div className="container">
         <div className={s.movie__inner}>
-          <BigSlider controls={false} />
           <div className={s.movie__content}>
             <div className={s.movie__global}>
               <div
@@ -35,11 +65,7 @@ const MoviePage = () => {
                     Description
                   </h4>
                 </div>
-                <p className={s.movie__description}>
-                  A fiery young man clashes with an unflinching forest officer
-                  in a south Indian village where spirituality, fate and
-                  folklore rule the lands.
-                </p>
+                <p className={s.movie__description}>{info.overview}</p>
               </div>
               <div
                 className={`${s.movie__cast_wrapper} ${s.movie__section_wrapper}`}
@@ -59,7 +85,10 @@ const MoviePage = () => {
                   </div>
                 </div>
 
-                <CastSlider customControls={handleCastControls} />
+                <CastSlider
+                  cast={info.cast}
+                  customControls={handleCastControls}
+                />
               </div>
               <div
                 className={`${s.movie__reviews_wrapper} ${s.movie__section_wrapper}`}
@@ -114,7 +143,11 @@ const MoviePage = () => {
                 }
                 title="Released Year"
               >
-                <p className={s.semi_20}>2022</p>
+                <p className={s.semi_20}>
+                  {new Date(
+                    info.release_date || info.first_air_date
+                  ).getFullYear()}
+                </p>
               </MovieInfoPart>
               <MovieInfoPart
                 icon={
@@ -137,9 +170,9 @@ const MoviePage = () => {
                 title="Available Languages"
               >
                 <div className={`${s.box__wrapper} ${s.box__small_wrapper}`}>
-                  {[...Array(5)].map((e) => (
+                  {info.spoken_languages.map((language) => (
                     <BlackBox className={s.box__small}>
-                      <p className={s.medium_18}>English</p>
+                      <p className={s.medium_18}>{language.english_name}</p>
                     </BlackBox>
                   ))}
                 </div>
@@ -169,7 +202,7 @@ const MoviePage = () => {
                     <p className={s.semi_20}>IMDb</p>
                     <Rating
                       className={s.box__big_rating}
-                      rating={4.5}
+                      rating={info.vote_average}
                       number={true}
                     />
                   </BlackBox>
@@ -214,26 +247,30 @@ const MoviePage = () => {
                     />
                   </svg>
                 }
-                title="Gernes"
+                title="Genres"
               >
                 <div className={`${s.box__wrapper} ${s.box__small_wrapper}`}>
-                  {[...Array(5)].map((e) => (
+                  {info.genres.map((genre) => (
                     <BlackBox className={s.box__small}>
-                      <p className={s.medium_18}>Action</p>
+                      <p className={s.medium_18}>{genre.name}</p>
                     </BlackBox>
                   ))}
                 </div>
               </MovieInfoPart>
-              <MovieInfoPart title="Director">
+              {/* <MovieInfoPart title="Director">
                 <BlackBox className={s.box__medium}>
-                  <PersonCard />
+                  <PersonCard
+                    info={info.cast.filter(
+                      (item) => item.known_for_department === "Director"
+                    )}
+                  />
                 </BlackBox>
               </MovieInfoPart>
               <MovieInfoPart title="Music">
                 <BlackBox className={s.box__medium}>
                   <PersonCard />
                 </BlackBox>
-              </MovieInfoPart>
+              </MovieInfoPart> */}
             </div>
           </div>
         </div>

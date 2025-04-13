@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import s from "./MovieCard.module.scss";
 import { Link } from "react-router";
 import Rating from "../Rating/Rating";
@@ -11,32 +11,53 @@ const MovieCard = ({
     date: "Unknown date",
     title: "Unknown title",
   },
+  type = "movie",
 }) => {
+  const date = useMemo(() => {
+    const date = new Date(info?.release_date || info?.first_air_date);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = date.toLocaleString("en-US", { month: "short" }); // May / Nov / etc.
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+  }, []);
+
   return (
     <div className={s.card}>
-      <Link to={"/movie2"} className={s.card__link}>
+      <Link to={`/movie/${info?.id}?type=${type}`} className={s.card__link}>
         <div className={s.card__poster_wrapper}>
           <div className={s.card__genres_content}>
             <div className={s.card__genres}>
-              <BlackBox className={s.card__genres_wrapper}>Action</BlackBox>
-              <BlackBox className={s.card__genres_wrapper}>Fantasie</BlackBox>
-              <BlackBox className={s.card__genres_wrapper}>Triller</BlackBox>
-              <BlackBox className={s.card__genres_wrapper}>Horror</BlackBox>
+              {info?.genres?.map((genre) => (
+                <BlackBox className={s.card__genres_wrapper}>
+                  {genre.name}
+                </BlackBox>
+              ))}
             </div>
           </div>
 
-          <img className={s.card__poster} src="/img/group/1.webp" alt="" />
+          <img
+            className={s.card__poster}
+            src={`${import.meta.env.VITE_TMDB_IMAGE_BASE_URL}${
+              info?.poster_path
+            }`}
+            alt=""
+          />
         </div>
         <div className={s.card__content}>
           {showInfo ? (
             <div className={s.card__date_wrapper}>
               <p className={s.card__country}>{`${
-                info.country || "Unknown country"
+                info?.origin_country
+                  ? info?.origin_country[0]
+                  : "Unknown country"
               },`}</p>
-              <p className={s.card__date}>{info.date || "Unknown date"}</p>
+              <p className={s.card__date}>{date || "Unknown date"}</p>
             </div>
           ) : null}
-          <p className={s.card__title}>{info?.title || "Unknown title"}</p>
+          <p className={s.card__title}>
+            {info?.title || info?.name || "Unknown title"}
+          </p>
         </div>
         <div className={s.card__info}>
           {params?.duration && (
@@ -166,7 +187,12 @@ const MovieCard = ({
               <div
                 className={` ${s.card__info_rating} ${s.card__info_content}`}
               >
-                <Rating rating={8.9} starWidth={12} starGap={2} count={5} />
+                <Rating
+                  key={info?.id}
+                  rating={info?.vote_average}
+                  count={5}
+                  number={true}
+                />
                 <p
                   className={`${s.card__info_release_text} ${s.card__info_text}`}
                 >

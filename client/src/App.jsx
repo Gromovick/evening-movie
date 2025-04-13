@@ -8,6 +8,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import MoviePage from "./pages/MoviePage/MoviePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 function App() {
   const user = useSelector((state) => state.user.user);
@@ -40,7 +41,7 @@ function App() {
           }
         />
         <Route
-          path="/movies/:id"
+          path="/movie/:id"
           element={
             <MainLayout>
               {" "}
@@ -54,6 +55,15 @@ function App() {
             <MainLayout>
               {" "}
               <ProfilePage />{" "}
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <MainLayout>
+              {" "}
+              <SearchPage />{" "}
             </MainLayout>
           }
         />

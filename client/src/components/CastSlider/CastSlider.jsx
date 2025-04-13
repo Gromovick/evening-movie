@@ -2,11 +2,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { SwiperSlide } from "swiper/react";
 import s from "./CastSlider.module.scss";
 import Slider from "../Slider/Slider";
-const CastSlider = ({
-  cast = [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  renderControls,
-  customControls,
-}) => {
+const CastSlider = ({ cast = [], renderControls, customControls }) => {
   const slider = useRef(null);
 
   const handleSlideNext = useCallback(() => {
@@ -33,15 +29,22 @@ const CastSlider = ({
         slidesPerView={"auto"}
         spaceBetween={20}
       >
-        {cast.map((e) => (
-          <SwiperSlide>
-            <img
-              className={s.cast__slider_img}
-              src="/img/main/rock.jpg"
-              alt=""
-            />
-          </SwiperSlide>
-        ))}
+        {cast.length > 0 &&
+          cast?.map((e) => (
+            <SwiperSlide>
+              <img
+                className={s.cast__slider_img}
+                src={
+                  e.profile_path
+                    ? `${import.meta.env.VITE_TMDB_CAST_IMAGE_BASE_URL}${
+                        e.profile_path
+                      }`
+                    : "/img/default/pfp.webp"
+                }
+                alt=""
+              />
+            </SwiperSlide>
+          ))}
       </Slider>
     </div>
   );

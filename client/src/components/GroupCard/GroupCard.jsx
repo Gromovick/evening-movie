@@ -1,14 +1,25 @@
 import React from "react";
 import s from "./GroupCard.module.scss";
 import { Link } from "react-router";
-const GroupCard = ({ topIn }) => {
+
+const GroupCard = ({ topIn, data }) => {
+  const handleImageError = (e) => {
+    e.currentTarget.onerror = null;
+    e.currentTarget.src = "/img/group/1.webp";
+  };
   return (
     <Link to={"/movie"} className={s.card}>
       <div className={s.card__grid}>
-        <img className={s.card__grid_img} src="/img/group/1.webp" alt="" />
-        <img className={s.card__grid_img} src="/img/group/2.avif" alt="" />
-        <img className={s.card__grid_img} src="/img/group/3.avif" alt="" />
-        <img className={s.card__grid_img} src="/img/group/4.jpg" alt="" />
+        {data?.movies?.map((movie) => (
+          <img
+            className={s.card__grid_img}
+            src={`${import.meta.env.VITE_TMDB_IMAGE_BASE_URL}${
+              movie?.poster_path
+            }`}
+            alt=""
+            onError={handleImageError}
+          />
+        ))}
       </div>
       <div className={s.card__link} to={"movie"}>
         <div className={s.card__link_text_wrapper}>
@@ -17,7 +28,7 @@ const GroupCard = ({ topIn }) => {
               <p className={s.card__link_top}>{`Top ${topIn} in`}</p>
             </div>
           )}
-          <p className={s.card__link_text}>Action</p>
+          <p className={s.card__link_text}>{data?.genreName}</p>
         </div>
         <svg
           className={s.card__link_icon}

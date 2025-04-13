@@ -105,7 +105,7 @@ const SectionSlider = ({ title, children, slides, type }) => {
                   />
                 </svg>
               </button>
-              <div className={s.slider__pagination}>
+              {/* <div className={s.slider__pagination}>
                 {slides.map((slide, index) => {
                   return index !== slides.length - 1 ? (
                     <button
@@ -118,7 +118,7 @@ const SectionSlider = ({ title, children, slides, type }) => {
                     ></button>
                   ) : null;
                 })}
-              </div>
+              </div> */}
               <button
                 onClick={handleScrollNext}
                 id={"next"}
@@ -144,7 +144,7 @@ const SectionSlider = ({ title, children, slides, type }) => {
         </div>
 
         <Slider
-          rewind={true}
+          // rewind={true}
           freeMode={{ enable: true, sticky: true }}
           modules={[FreeMode, Scrollbar, Navigation]}
           scrollbar={{

@@ -3,8 +3,12 @@ import { useEffect } from "react";
 export function useOnLoad() {
   const [load, setLoad] = useState(false);
   useEffect(() => {
-    window.addEventListener("load", () => setLoad(true));
-    return window.removeEventListener("load", () => setLoad(true));
+    const onLoad = () => setLoad(true);
+    if (document.readyState === "complete") onLoad();
+    else {
+      window.addEventListener("load", onLoad);
+      return () => window.removeEventListener("load", onLoad);
+    }
   }, []);
   return load;
 }

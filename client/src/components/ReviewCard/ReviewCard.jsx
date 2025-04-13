@@ -6,7 +6,7 @@ const ReviewCard = () => {
     <div className={s.review}>
       <div className={s.review__top}>
         <h4 className={s.review__nickname}>Aniket Roy</h4>
-        <Rating rating={7.8} wrapped={true} number={true} />
+        <Rating rating={1} wrapped={true} number={true} />
       </div>
       <p className={s.review__content}>
         This movie was recommended to me by a very dear friend who went for the
