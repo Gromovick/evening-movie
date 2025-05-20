@@ -1,0 +1,16 @@
+@use "../../styles/_mixins" as *;
+@use "../../styles/_media" as *;
+
+.button {
+  @include reset-button;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  padding-inline: 1.25rem;
+  color: var(--white);
+  background: var(--red-45);
+}
+
+.outline {
+  background: transparent;
+  border: 3px solid var(--red-45);
+}

@@ -1,0 +1,41 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/media" as *;
+
+.search {
+  &__filtering {
+    display: flex;
+  }
+  &__filter {
+    &_wrapper {
+      flex-shrink: 0;
+      flex-basis: 250px;
+      align-self: stretch;
+
+      @include tablet {
+        flex-basis: 0px;
+      }
+    }
+    &_sticky {
+      position: sticky;
+      top: 0;
+      left: 0;
+      max-height: 100svh;
+      overflow: scroll;
+      overflow-x: hidden;
+    }
+  }
+  &__movies_grid {
+    flex-grow: 1;
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    @include desktop {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include mobile {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

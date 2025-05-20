@@ -6,6 +6,7 @@ const router = express.Router();
 
 
 // router.get("/movies/genre", MoviesController.getMoviesByGenre);
+router.get("/valid-genres", createCacheMiddleware(3600), MoviesController.getValidGenres)
 router.get("/movies", createCacheMiddleware(3600), MoviesController.getMovies)
 router.get("/movies/genres", createCacheMiddleware(3600), MoviesController.getGenres);
 router.get("/movies/trending", createCacheMiddleware(3600), MoviesController.getTrending);

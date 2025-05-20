@@ -1,5 +1,5 @@
 import { UserService } from "../services/UserService.js";
-import { ApiError } from "../utils/ApiError.js";
+import { Catcher } from "../utils/Catcher.js";
 import { handleError } from "../utils/handleError.js";
 import { ResFormatter } from "../utils/ResFormatter.js";
 import { throwApiError } from "../utils/throwApiError.js";
@@ -80,6 +80,29 @@ class UserControllerClass {
     } catch (error) {
       res.redirect(process.env.CLIENT_URL);
     }
+  }
+
+  async authentication(req, res, next) {
+    const callback = async () => {
+      const accessToken = req.cookies.accessToken;
+
+      const refreshToken = req.cookies.refreshToken;
+      console.log(refreshToken);
+      const data = await UserService.authentication({
+        accessToken,
+        refreshToken,
+      });
+
+      res.cookie("accessToken", data.result.accessToken, {
+        httpOnly: true,
+        maxAge: 15 * 60 * 1000,
+      });
+      ResFormatter.resAnswer(res, 200, {
+        user: data.result.user,
+        message: data.message,
+      });
+    };
+    Catcher.Controller(callback, next);
   }
 }
 

@@ -17,7 +17,7 @@ const MovieCard = ({
     const date = new Date(info?.release_date || info?.first_air_date);
 
     const day = String(date.getDate()).padStart(2, "0");
-    const month = date.toLocaleString("en-US", { month: "short" }); // May / Nov / etc.
+    const month = date.toLocaleString("en-US", { month: "short" });
     const year = date.getFullYear();
     return `${day} ${month} ${year}`;
   }, []);
@@ -38,10 +38,11 @@ const MovieCard = ({
 
           <img
             className={s.card__poster}
-            src={`${import.meta.env.VITE_TMDB_IMAGE_BASE_URL}${
+            src={info?.poster_path ? `${import.meta.env.VITE_TMDB_IMAGE_BASE_URL}${
               info?.poster_path
-            }`}
+            }` : "/img/main/poster1.webp"}
             alt=""
+            loading="lazy"
           />
         </div>
         <div className={s.card__content}>

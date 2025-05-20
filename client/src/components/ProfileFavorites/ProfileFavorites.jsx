@@ -6,20 +6,22 @@ const ProfileFavorites = ({ title = "No title", images, limit = 3 }) => {
   }, [images, limit]);
 
   return (
-    <div className={s.favorites}>
-      <h4 className={s.favorites__title}>{title}</h4>
-      <div className={s.favorites__content}>
-        {renderImages.map((image, index) => {
-          return (
-            <div className={s.favorites__poster_wrapper}>
-              <img
-                className={s.favorites__poster}
-                src="/img/main/rock.jpg"
-                alt=""
-              />
-            </div>
-          );
-        })}
+    <div className={s.favorites__wrapper}>
+      <div className={s.favorites}>
+        <h4 className={s.favorites__title}>{title}</h4>
+        <div className={s.favorites__content}>
+          {renderImages.map((image, index) => {
+            return (
+              <div className={s.favorites__poster_wrapper}>
+                <img
+                  className={s.favorites__poster}
+                  src="/img/main/rock.jpg"
+                  alt=""
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

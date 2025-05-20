@@ -7,6 +7,12 @@
   display: flex;
   flex-direction: column;
   border-radius: toRem(10);
+
+  &__wrapper {
+    display: flex;
+    margin-top: fluid-rem(30, 15);
+  }
+
   &__title {
     display: block;
     color: var(--white);
@@ -19,6 +25,7 @@
     padding-inline: fluid-rem(16, 14);
     background: var(--red-45);
     border-radius: toRem(8);
+    @include text-limit(1);
   }
   &__content {
     display: flex;

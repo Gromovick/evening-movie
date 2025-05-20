@@ -8,7 +8,7 @@ const TV = () => {
   return (
     <Section title={"Shows"}>
       <GenresSlider type="tv" />
-      <TopInSlider type="tv" />
+      {/* <TopInSlider type="tv" /> */}
       <MovieSlider type="tv" />
     </Section>
   );

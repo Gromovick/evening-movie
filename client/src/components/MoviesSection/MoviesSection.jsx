@@ -14,7 +14,7 @@ const MoviesSection = () => {
   return (
     <>
       <Movies />
-      <TV />
+      {/* <TV /> */}
     </>
   );
 };

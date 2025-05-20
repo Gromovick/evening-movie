@@ -23,10 +23,12 @@ const GenresSlider = ({ type = "movie" }) => {
   const slides = useMemo(() => {
     const keys = Object.keys(result || {});
     return keys.map((key) => {
-      const keyData = result[key];
+      const keyData = result[key]?.genres;
+
       return {
         genreName: key,
-        movies: keyData.slice(0, 4), // беремо лише перші 4 фільми
+        id: result[key].id,
+        movies: keyData?.slice(0, 4), // беремо лише перші 4 фільми
       };
     });
   }, [result]);
@@ -37,7 +39,10 @@ const GenresSlider = ({ type = "movie" }) => {
       {isSuccess &&
         slides?.map((slide) => (
           <SwiperSlide>
-            <GroupCard data={slide} />
+            <GroupCard
+              data={slide}
+              url={`type=${type}&with_genres=${slide.id}`}
+            />{" "}
           </SwiperSlide>
         ))}
     </SectionSlider>

@@ -2,13 +2,13 @@ import React from "react";
 import s from "./GroupCard.module.scss";
 import { Link } from "react-router";
 
-const GroupCard = ({ topIn, data }) => {
+const GroupCard = ({ topIn, data, url = "" }) => {
   const handleImageError = (e) => {
     e.currentTarget.onerror = null;
     e.currentTarget.src = "/img/group/1.webp";
   };
   return (
-    <Link to={"/movie"} className={s.card}>
+    <Link to={`/search?${url}`} className={s.card}>
       <div className={s.card__grid}>
         {data?.movies?.map((movie) => (
           <img

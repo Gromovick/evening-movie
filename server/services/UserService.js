@@ -1,4 +1,5 @@
 import UserModel from "../models/UserModel.js";
+import { Catcher } from "../utils/Catcher.js";
 
 import { ResFormatter } from "../utils/ResFormatter.js";
 import { throwApiError } from "../utils/throwApiError.js";
@@ -101,6 +102,30 @@ class UserServiceClass {
     } catch (error) {
       throwHandleError(error, "Internal Server Error while registering user");
     }
+  }
+
+  async authentication({ accessToken, refreshToken }) {
+    const callback = async () => {
+      console.log(refreshToken);
+
+      const { user: userId } = await TokenService.verifyToken(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET
+      );
+
+      const DB_user = await UserModel.findById(userId);
+
+      if (!DB_user) {
+        throwApiError(404, "Unauthorized", "Cant login");
+      }
+
+      const newAccessToken = await TokenService.createAccessToken(DB_user);
+      return ResFormatter.resForm(
+        { accessToken: newAccessToken, user: DB_user },
+        "Користувач успішно ввійшов у систему"
+      );
+    };
+    return Catcher.Service(callback);
   }
 }
 

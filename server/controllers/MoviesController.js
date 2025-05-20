@@ -65,6 +65,15 @@ class MoviesControllerClass {
             next(handleError(error, ""));
         }
     }
+    async getValidGenres(req, res, next) {
+        try {
+            const { type, ...query } = req.query;
+            const data = await MoviesService.getValidGenres({ query, type });
+            ResFormatter.resAnswer(res, 200, data);
+        } catch (error) {
+            next(handleError(error, ""));
+        }
+    }
 }
 
 export const MoviesController = new MoviesControllerClass();

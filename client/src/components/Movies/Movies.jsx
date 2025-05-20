@@ -14,7 +14,7 @@ const Movies = () => {
     <Section title={"Movie"}>
       <GenresSlider type={"movie"} />
       <MovieSlider type={"movie"} />
-      <TopInSlider type={"movie"} />
+      {/* <TopInSlider type={"movie"} /> */}
       <Popular type={"movie"} />
     </Section>
   );
